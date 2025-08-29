@@ -1,6 +1,7 @@
 const board = document.getElementById('board');
 let snake = []
 let score = 0
+let speed = 130
 const idx = (x, y) => y * 20 + x
 
 // create grid
@@ -79,8 +80,27 @@ setInterval(() => {
 
     // barkhord ba badan
     if (snake.some(val => val.x == newHead.x && val.y == newHead.y)) {
-        alert('game over')
-        location.reload()
+        // popup
+        const popup = document.getElementById('popup')
+        const restart = document.getElementById('restart')
+        const box = document.querySelector('.box')
+
+        popup.classList.remove('hide')
+
+        popup.addEventListener('click', () => {
+            popup.classList.add('hide')
+            location.reload()
+        })
+
+        restart.addEventListener('click', () => {
+            popup.classList.add('hide')
+            location.reload()
+        })
+
+        box.addEventListener('click', (e) => {
+            e.stopPropagation()
+        })
+
         return
     }
 
@@ -101,7 +121,7 @@ setInterval(() => {
         cells[idx(tail.x, tail.y)].classList.remove('snake')
     }
 
-}, 100)
+}, speed)
 
 
 // W A S D
